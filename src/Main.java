@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        try(Socket socket = new Socket("localhost", 8002);
+        try(Socket socket = new Socket("localhost", 8001);
             PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream())){
@@ -14,6 +14,7 @@ public class Main {
 
             boolean dziala = true;
             while(dziala){
+                System.out.println(bufferedReader.readLine());
                 switch(scanner.nextLine()){
                     case "koniec" -> {
                         dziala = false;
@@ -53,7 +54,10 @@ public class Main {
                         printWriter.println(6);
                         System.out.println(bufferedReader.readLine());
                     }
-                    default -> System.out.println("Nieznana komenda");
+                    default -> {
+                        printWriter.println(7);
+                        System.out.println("Nieznana komenda");
+                    }
                 }
             }
         } catch(IOException e) {
